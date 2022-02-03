@@ -20,3 +20,8 @@ Get-Clipboard
 ```
 Find-Command -Repository PSGallery | Select-Object -First 10
 ```
+- Get the member of any variable that can be used further.
+```
+$byteArray = Get-Content -Path C:\temp\test.txt -AsByteStream -Raw
+Get-Member -InputObject $bytearray
+```
