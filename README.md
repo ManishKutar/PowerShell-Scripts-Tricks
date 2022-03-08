@@ -44,7 +44,7 @@ Import-Module $IdeModulePath -Force | Out-Null
 
 Write-Host "Compiling the modified objects >>" -ForegroundColor Blue -BackgroundColor Yellow
 
-$filter = "Modified=1"
+$filter = "Modified=1" //$filter = "Type=$objectType;Version List=<>*Test*"
 $NAVSERVER = "<NAV Server name>"
 $NAVINSTANCE = "<NAV Server instance>"
 $SQLSERVER = "<SQL Server name>"
