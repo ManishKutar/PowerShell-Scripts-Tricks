@@ -25,3 +25,35 @@ Find-Command -Repository PSGallery | Select-Object -First 10
 $byteArray = Get-Content -Path C:\temp\test.txt -AsByteStream -Raw
 Get-Member -InputObject $bytearray
 ```
+## PowerShell Scripts - NAV
+- Compile objects
+```
+$Version = 110
+if ([Environment]::Is64BitProcess)
+{
+    $RtcFolder = 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft Dynamics NAV\' + $Version + '\RoleTailored Client'
+}
+else
+{
+    $RtcFolder = 'HKLM:\SOFTWARE\Microsoft\Microsoft Dynamics NAV\' + $Version + '\RoleTailored Client'
+}
+
+Test-Path $RtcFolder
+$IdeModulePath = (Join-Path (Get-ItemProperty $RtcFolder).Path Microsoft.Dynamics.Nav.Ide.psm1)
+Import-Module $IdeModulePath -Force | Out-Null
+
+Write-Host "Compiling the modified objects >>" -ForegroundColor Blue -BackgroundColor Yellow
+
+$filter = "Modified=1"
+$NAVSERVER = "<NAV Server name>"
+$NAVINSTANCE = "<NAV Server instance>"
+$SQLSERVER = "<SQL Server name>"
+$SQLINSTANCE = ""
+$DB = "<Db name>"
+$SYNC = "Yes"
+$USER = "<User ID>"
+$PASS = "<Password>"
+$PathOfLogs = 'C:\<path of log>\'
+
+Compile-NAVApplicationObject -navservername $NAVSERVER -navserverinstance $NAVINSTANCE -databaseserver $SQLSERVER\$SQLINSTANCE -databasename $DB -synchronizeschemachanges $SYNC -username $USER -password $PASS -filter $filter –recompile -LogPath $PathOfLogs
+```
