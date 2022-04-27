@@ -62,3 +62,7 @@ Compile-NAVApplicationObject -navservername $NAVSERVER -navserverinstance $NAVIN
 ```
 Import-BcContainerLicense -licenseFile <file_path_of_license_file> -containerName <Container_name> -restart
 ```
+- Microsoft Dynamics NAV or Business Central Container Wizard
+```
+New-BcContainerWizard
+```
