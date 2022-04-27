@@ -57,3 +57,8 @@ $PathOfLogs = 'C:\<path of log>\'
 
 Compile-NAVApplicationObject -navservername $NAVSERVER -navserverinstance $NAVINSTANCE -databaseserver $SQLSERVER\$SQLINSTANCE -databasename $DB -synchronizeschemachanges $SYNC -username $USER -password $PASS -filter $filter –recompile -LogPath $PathOfLogs
 ```
+## PowerShell Scripts - Docker Container and Images
+- Upload license
+```
+Import-BcContainerLicense -licenseFile <file_path_of_license_file> -containerName <Container_name> -restart
+```
