@@ -25,7 +25,7 @@ Find-Command -Repository PSGallery | Select-Object -First 10
 $byteArray = Get-Content -Path C:\temp\test.txt -AsByteStream -Raw
 Get-Member -InputObject $bytearray
 ```
-## PowerShell Scripts - NAV
+## PowerShell Scripts - BC / NAV
 - Compile objects
 ```
 $Version = 110
@@ -56,6 +56,17 @@ $PASS = "<Password>"
 $PathOfLogs = 'C:\<path of log>\'
 
 Compile-NAVApplicationObject -navservername $NAVSERVER -navserverinstance $NAVINSTANCE -databaseserver $SQLSERVER\$SQLINSTANCE -databasename $DB -synchronizeschemachanges $SYNC -username $USER -password $PASS -filter $filter –recompile -LogPath $PathOfLogs
+```
+- Check installed modules
+```
+$module = 'Microsoft.Dynamics.Nav.Management'
+if (Get-Module | Where-Object {$_.Name -eq $module}) {
+    Write-Host "Module $($module) is imported" -ForegroundColor Green
+}
+else {
+    Write-Host "Module $($module) is not imported. Importing it further.." -ForegroundColor Red
+    Import-Module "${env:ProgramFiles}\Microsoft Dynamics NAV\110\Service\NavAdminTool.ps1" -force -DisableNameChecking -Verbose | Out-Null
+}
 ```
 ## PowerShell Scripts - Docker Container and Images
 - Upload license
