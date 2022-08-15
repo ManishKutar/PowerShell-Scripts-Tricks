@@ -77,3 +77,16 @@ Import-BcContainerLicense -licenseFile <file_path_of_license_file> -containerNam
 ```
 New-BcContainerWizard
 ```
+- Inspect BC docker for settings
+```
+docker inspect <Container_name>
+```
+- Logs of BC docker (can be used to get details like Vsix files for compiler on container)
+```
+docker log <Container_name>
+```
+Example of getting compiler details of container: (Reference: https://www.powershellgallery.com/packages/Tecman.Tfs.Tools/1.1.54.0/)
+```
+$Logs = docker logs <Container_name>
+$VsixUrl = $Logs.Item($Logs.IndexOf('Files:') + 1)
+```
